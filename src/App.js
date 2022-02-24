@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
 import Userlist from './Userlist';
 
@@ -15,7 +15,13 @@ function App() {
     }
     return output
   }
-
+  useEffect(() => { //one time effect, will not be affected by react re-renders
+    fetch('https://jsonplaceholder.typicode.com/todos')  //async operation
+      .then(response => response.json())
+      .then(json => {
+        setStateNames(json) //save response into state after it is finished
+      })
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
