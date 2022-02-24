@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css';
+import Userlist from './Userlist';
 
 function App() {
   const names = ["Thomas", "Frank", "Tommy"] // nono-react pure javascript array
@@ -29,15 +30,7 @@ function App() {
           setStateNames(newStateNames)
         }}>Submit</button>
         <ul>
-          {stateNames.map(name => (
-            <li>{name} <button onClick={(e) => {
-              const newStateNames = [...stateNames] // deepclone
-              const positionInArray = newStateNames.findIndex(nameToSearch => nameToSearch === name)
-              const personDeleted = newStateNames.splice(positionInArray, 1)
-              console.log(personDeleted)
-              setStateNames(newStateNames)
-            }}>X</button></li>
-          ))}
+          <Userlist stateNames={stateNames} setStateNames={setStateNames} />
         </ul>
 
       </header>
