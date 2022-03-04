@@ -3,7 +3,8 @@ import './App.css';
 import Userlist from './Userlist';
 
 function App() {
-  const names = [{ title: "Brot" }, { title: "Milch" }, { title: "Kaese" }] // nono-react pure javascript array
+  const names = JSON.parse(localStorage.getItem("todos")) || [] // nono-react pure javascript array
+
   const [stateNames, setStateNames] = useState(names) //define a getter variable and a setter method
   const [input, setInput] = useState("")
   const [error, setError] = useState(undefined)
@@ -15,12 +16,11 @@ function App() {
   //       setStateNames(json) //save response into state after it is finished
   //     })
   // }, [])
-
   return (
     <div className="App ">
       <header className="App-header container">
         Add to list {input}!
-        <div class="input-group my-3">
+        <div className="input-group my-3">
           <input className='form-control' value={input} id="name" name="username" placeholder='Enter name' onChange={(e) => {
             setInput(e.target.value)
             if (e.target.value.length > 1) {
@@ -33,8 +33,9 @@ function App() {
           <button className="btn btn-primary ms-2" onClick={(e) => { // react has lots of build in event handlers
             const name = document.getElementById("name")
             const newStateNames = [...stateNames] // deepclone
-            newStateNames.push(name.value)
+            newStateNames.push({ title: name.value })
             setStateNames(newStateNames)
+            localStorage.setItem("todos", JSON.stringify(newStateNames))
             setInput("")
           }}>Submit</button>
         </div>
