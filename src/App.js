@@ -3,32 +3,25 @@ import './App.css';
 import Userlist from './Userlist';
 
 function App() {
-  const names = ["Thomas", "Frank", "Tommy"] // nono-react pure javascript array
+  const names = [{ title: "Brot" }, { title: "Milch" }, { title: "Kaese" }] // nono-react pure javascript array
   const [stateNames, setStateNames] = useState(names) //define a getter variable and a setter method
   const [input, setInput] = useState("")
   const [error, setError] = useState(undefined)
 
-  function convert(input) {
-    let output = "";
-    for (var i = 0; i < input.length; i++) {
-      output += input[i].charCodeAt(0).toString(2) + " ";
-    }
-    return output
-  }
-  useEffect(() => { //one time effect, will not be affected by react re-renders
-    fetch('https://jsonplaceholder.typicode.com/todos')  //async operation
-      .then(response => response.json())
-      .then(json => {
-        setStateNames(json) //save response into state after it is finished
-      })
-  }, [])
+  // useEffect(() => { //one time effect, will not be affected by react re-renders
+  //   fetch('https://jsonplaceholder.typicode.com/todos')  //async operation
+  //     .then(response => response.json())
+  //     .then(json => {
+  //       setStateNames(json) //save response into state after it is finished
+  //     })
+  // }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        Hey new user {input}!
+    <div className="App ">
+      <header className="App-header container">
+        Add to list {input}!
         <div class="input-group my-3">
           <input className='form-control' value={input} id="name" name="username" placeholder='Enter name' onChange={(e) => {
-            const binaryString = convert(e.target.value)
             setInput(e.target.value)
             if (e.target.value.length > 1) {
               setError(undefined)
@@ -42,6 +35,7 @@ function App() {
             const newStateNames = [...stateNames] // deepclone
             newStateNames.push(name.value)
             setStateNames(newStateNames)
+            setInput("")
           }}>Submit</button>
         </div>
         {error !== undefined ? (
