@@ -8,6 +8,7 @@ function App() {
   const [stateNames, setStateNames] = useState(names) //define a getter variable and a setter method
   const [input, setInput] = useState("")
   const [error, setError] = useState(undefined)
+  const [darkmode, setDarkmode] = useState(false)
 
   // useEffect(() => { //one time effect, will not be affected by react re-renders
   //   fetch('https://jsonplaceholder.typicode.com/todos')  //async operation
@@ -16,12 +17,16 @@ function App() {
   //       setStateNames(json) //save response into state after it is finished
   //     })
   // }, [])
+  console.log(darkmode);
   return (
-    <div className="App ">
+    <div className={`App ${darkmode ? `bg-dark text-light` : ``}`}>
+      <button className={`btn ${darkmode ? `btn-dark` : `btn-light`}`} onClick={e => {
+        setDarkmode(!darkmode)
+      }}>Darkmode</button>
       <header className="App-header container">
         Add to list {input}!
         <div className="input-group my-3">
-          <input className='form-control' value={input} id="name" name="username" placeholder='Enter name' onChange={(e) => {
+          <input className={`form-control ${darkmode ? `bg-dark` : ``}`} value={input} id="name" name="username" placeholder='Enter name' onChange={(e) => {
             setInput(e.target.value)
             if (e.target.value.length > 1) {
               setError(undefined)
@@ -45,7 +50,7 @@ function App() {
           </div>
 
         ) : null}
-        <Userlist stateNames={stateNames} setStateNames={setStateNames} />
+        <Userlist darkmode={darkmode} stateNames={stateNames} setStateNames={setStateNames} />
 
       </header>
     </div>

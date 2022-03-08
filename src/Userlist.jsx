@@ -12,11 +12,11 @@ function Userlist(props) {
     props.stateNames.forEach((item, index) => {
         refsById[index] = React.createRef(null)
     })
-    return <ul className="list-group w-100">{props.stateNames.map((todo, index) => (
-        <li key={index} className={`list-group-item d-flex justify-content-between align-items-center ${edit === index ? `ps-1` : ``}`}>
+    return <ul className={`list-group w-100`}>{props.stateNames.map((todo, index) => (
+        <li key={index} className={`list-group-item d-flex justify-content-between align-items-center  ${props.darkmode ? `list-group-item-dark bg-dark text-white border-white` : ``} ${edit === index ? `ps-1` : ``}`}>
             {edit === index ? (
                 <>
-                    <input ref={refsById[index]} className="form-control" onChange={e => {
+                    <input ref={refsById[index]} className={`form-control ${props.darkmode ? `bg-dark text-light` : ``}`} onChange={e => {
                         console.log(e)
                     }} value={todo.title} />
                 </>
