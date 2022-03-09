@@ -7,7 +7,9 @@ function Userlist(props) {
     return <ul className={`list-group w-100`}>{props.stateNames.map((todo, index) => (
         <li key={index} className={`list-group-item d-flex justify-content-between align-items-center  ${props.darkmode ? `list-group-item-dark bg-dark text-white border-white` : ``} ${edit === index ? `ps-1` : ``}`}>
 
-            <input ref={lineRefs.current[index]} className={`form-control ${props.darkmode ? `bg-dark text-light` : ``} ${edit === index ? `` : `d-none`}`} value={todo.title} />
+            <input ref={lineRefs.current[index]} className={`form-control ${props.darkmode ? `bg-dark text-light` : ``} ${edit === index ? `` : `d-none`}`} onChange={e => {
+                // console.log(e)
+            }} value={todo.title} />
 
             <span className={`me-3  ${edit === index ? `d-none` : ``}`}>{todo.title}</span>
 

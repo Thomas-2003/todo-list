@@ -10,16 +10,19 @@ function App() {
   const [input, setInput] = useState("")
   const [error, setError] = useState(undefined)
   const [darkmode, setDarkmode] = useState(false)
-
+  const [query, setQuery] = useState(undefined)
   useEffect(() => { //one time effect, will not be affected by react re-renders
-    fetch('http://localhost:4000/todos')  //async operation
+    let parameters = ``
+    if (query) {
+      parameters = query.sort === 'title' ? `?sort=title` : ``
+    }
+    fetch(`http://localhost:4000/todos${parameters}`)  //async operation
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         setStateNames(json) //save response into state after it is finished
       })
-  }, [])
-  console.log(darkmode);
+  }, [query])
+
   return (
     <div className={`App ${darkmode ? `bg-dark text-light` : ``}`}>
       <button className={`btn ${darkmode ? `btn-dark` : `btn-light`}`} onClick={e => {
@@ -37,21 +40,24 @@ function App() {
             }
           }} />
 
-          <button className="btn btn-primary ms-2" onClick={(e) => { // react has lots of build in event handlers
-            const name = document.getElementById("name")
-            const newStateNames = [...stateNames] // deepclone
-            newStateNames.push({ title: name.value })
-            setStateNames(newStateNames)
-            //localStorage.setItem("todos", JSON.stringify(newStateNames))
-            setInput("")
-          }}>Submit</button>
+          <button className="btn btn-primary ms-2" x>Submit</button>
         </div>
         {error !== undefined ? (
-          <div class="mb-3 alert alert-danger" role="alert">
+          <div className="mb-3 alert alert-danger" role="alert">
             {error}
           </div>
 
         ) : null}
+        <div className="btn-group mb-3" role="group" aria-label="Basic example">
+          <button className="btn btn-primary" onClick={e => {
+            setQuery({ sort: "title" })
+          }}>Sort</button>
+          <button className="btn btn-primary">Done</button>
+          <button className="btn btn-primary">Not done</button>
+          <button className="btn btn-primary" onClick={e => {
+            setQuery(undefined)
+          }}>Reset</button>
+        </div>
         <Userlist darkmode={darkmode} stateNames={stateNames} setStateNames={setStateNames} />
 
       </header>
