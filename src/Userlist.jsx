@@ -33,7 +33,7 @@ function Userlist(props) {
                     const positionInArray = newStateNames.findIndex(nameToSearch => nameToSearch.title === todo.title)
                     const personDeleted = newStateNames.splice(positionInArray, 1)
                     props.setStateNames(newStateNames)
-                    localStorage.setItem("todos", JSON.stringify(newStateNames))
+                    //localStorage.setItem("todos", JSON.stringify(newStateNames))
                 }}>X</button>
             </div>
         </li>

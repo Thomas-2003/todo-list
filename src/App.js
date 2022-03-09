@@ -3,20 +3,22 @@ import './App.css';
 import Userlist from './Userlist';
 
 function App() {
-  const names = JSON.parse(localStorage.getItem("todos")) || [] // nono-react pure javascript array
+  // const names = JSON.parse(localStorage.getItem("todos")) || [] // nono-react pure javascript array
+  const names = [] // nono-react pure javascript array
 
   const [stateNames, setStateNames] = useState(names) //define a getter variable and a setter method
   const [input, setInput] = useState("")
   const [error, setError] = useState(undefined)
   const [darkmode, setDarkmode] = useState(false)
 
-  // useEffect(() => { //one time effect, will not be affected by react re-renders
-  //   fetch('https://jsonplaceholder.typicode.com/todos')  //async operation
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       setStateNames(json) //save response into state after it is finished
-  //     })
-  // }, [])
+  useEffect(() => { //one time effect, will not be affected by react re-renders
+    fetch('http://localhost:4000/todos')  //async operation
+      .then(response => response.json())
+      .then(json => {
+        console.log(json)
+        setStateNames(json) //save response into state after it is finished
+      })
+  }, [])
   console.log(darkmode);
   return (
     <div className={`App ${darkmode ? `bg-dark text-light` : ``}`}>
@@ -40,7 +42,7 @@ function App() {
             const newStateNames = [...stateNames] // deepclone
             newStateNames.push({ title: name.value })
             setStateNames(newStateNames)
-            localStorage.setItem("todos", JSON.stringify(newStateNames))
+            //localStorage.setItem("todos", JSON.stringify(newStateNames))
             setInput("")
           }}>Submit</button>
         </div>
