@@ -16,6 +16,10 @@ function App() {
     if (query) {
       parameters = query.sort === 'title' ? `?sort=title` : ``
     }
+    if (query && query.filter) {
+      parameters = query.filter === 'completed' ? `?filter=completed` : `?filter=uncompleted`
+
+    }
     fetch(`http://localhost:4000/todos${parameters}`)  //async operation
       .then(response => response.json())
       .then(json => {
@@ -52,8 +56,12 @@ function App() {
           <button className="btn btn-primary" onClick={e => {
             setQuery({ sort: "title" })
           }}>Sort</button>
-          <button className="btn btn-primary">Done</button>
-          <button className="btn btn-primary">Not done</button>
+          <button className="btn btn-primary" onClick={e => {
+            setQuery({ filter: "completed" })
+          }}>Done</button>
+          <button className="btn btn-primary" onClick={e => {
+            setQuery({ filter: "uncompleted" })
+          }}>Not done</button>
           <button className="btn btn-primary" onClick={e => {
             setQuery(undefined)
           }}>Reset</button>
