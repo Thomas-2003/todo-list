@@ -65,6 +65,13 @@ function App() {
           <button className="btn btn-primary" onClick={e => {
             setQuery(undefined)
           }}>Reset</button>
+          <button className="btn btn-primary" onClick={e => {
+            fetch(`http://localhost:4000/todos/save`)  //async operation
+              .then(response => response.json())
+              .then(json => {
+                console.log(json)
+              })
+          }}>Save</button>
         </div>
         <Userlist darkmode={darkmode} stateNames={stateNames} setStateNames={setStateNames} />
 
