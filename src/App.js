@@ -66,7 +66,9 @@ function App() {
             setQuery(undefined)
           }}>Reset</button>
           <button className="btn btn-primary" onClick={e => {
-            fetch(`http://localhost:4000/todos/save`)  //async operation
+            fetch(`http://localhost:4000/todos/save`, {
+              method: "POST"
+            })  //async operation
               .then(response => response.json())
               .then(json => {
                 console.log(json)
