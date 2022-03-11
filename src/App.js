@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
 import Userlist from './Userlist';
+import { NavBar } from './NavBar';
 
 function App() {
   // const names = JSON.parse(localStorage.getItem("todos")) || [] // nono-react pure javascript array
@@ -11,6 +12,7 @@ function App() {
   const [error, setError] = useState(undefined)
   const [darkmode, setDarkmode] = useState(false)
   const [query, setQuery] = useState(undefined)
+  const [password, setpassword] = useState("")
   useEffect(() => { //one time effect, will not be affected by react re-renders
     let parameters = ``
     if (query) {
@@ -29,9 +31,9 @@ function App() {
 
   return (
     <div className={`App ${darkmode ? `bg-dark text-light` : ``}`}>
-      <button className={`btn ${darkmode ? `btn-dark` : `btn-light`}`} onClick={e => {
-        setDarkmode(!darkmode)
-      }}>Darkmode</button>
+      <NavBar setDarkmode={setDarkmode} darkmode={darkmode} />
+
+
       <header className="App-header container">
         Add to list {input}!
         <div className="input-group my-3">
