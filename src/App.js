@@ -12,7 +12,7 @@ function App() {
   const [error, setError] = useState(undefined)
   const [darkmode, setDarkmode] = useState(false)
   const [query, setQuery] = useState(undefined)
-  const [password, setpassword] = useState("")
+  const [loading, setloading] = useState(false)
   useEffect(() => { //one time effect, will not be affected by react re-renders
     let parameters = ``
     if (query) {
@@ -68,6 +68,7 @@ function App() {
             setQuery(undefined)
           }}>Reset</button>
           <button className="btn btn-primary" onClick={e => {
+            setloading(true)
             fetch(`http://localhost:4000/todos/save`, {
               method: "POST",
               headers: {
@@ -76,14 +77,25 @@ function App() {
             })  //async operation
               .then(response => response.json())
               .then(res => {
-                console.log(res)
+                setloading(false)
                 if (res.message === "success") {
-                  alert("Save worked")
+                  console.log("Save worked")
                 } else {
-                  alert("Password wrong")
+                  console.log("Password wrong")
                 }
               })
-          }}>Save</button>
+          }}>
+            {!loading ? (
+              <>
+                Save
+              </>
+            ) : (
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            )}
+          </button>
+
         </div>
         <Userlist darkmode={darkmode} stateNames={stateNames} setStateNames={setStateNames} />
 
