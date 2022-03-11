@@ -7,10 +7,16 @@ export const NavBar = (props) => {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="password" placeholder="Password" aria-label="Password" />
+                    <form onSubmit={e => {
+                        localStorage.setItem("password", e.target.elements.password.value)
+                        e.preventDefault()
+                    }} class="d-flex">
+                        <input class="form-control me-2" type="password" name="password" placeholder="Password" aria-label="Password" />
                         <button class="btn btn-outline-success" type="submit">Password</button>
                     </form>
+                    <button className={`btn ${props.darkmode ? `btn-dark` : `btn-light`}`} onClick={e => {
+                        localStorage.removeItem("password")
+                    }}>Logout</button>
                     <button className={`btn ${props.darkmode ? `btn-dark` : `btn-light`}`} onClick={e => {
                         props.setDarkmode(!props.darkmode)
                     }}>Darkmode</button>

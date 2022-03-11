@@ -69,11 +69,19 @@ function App() {
           }}>Reset</button>
           <button className="btn btn-primary" onClick={e => {
             fetch(`http://localhost:4000/todos/save`, {
-              method: "POST"
+              method: "POST",
+              headers: {
+                "Authorization": localStorage.getItem("password")
+              }
             })  //async operation
               .then(response => response.json())
-              .then(json => {
-                console.log(json)
+              .then(res => {
+                console.log(res)
+                if (res.message === "success") {
+                  alert("Save worked")
+                } else {
+                  alert("Password wrong")
+                }
               })
           }}>Save</button>
         </div>
