@@ -72,7 +72,7 @@ function App() {
             fetch(`http://localhost:4000/todos/save`, {
               method: "POST",
               headers: {
-                "Authorization": localStorage.getItem("password")
+                "Authorization": localStorage.getItem("token")
               }
             })  //async operation
               .then(response => response.json())
