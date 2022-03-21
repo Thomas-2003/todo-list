@@ -33,7 +33,7 @@ function Userlist(props) {
                 <button className="btn btn-outline-danger" onClick={(e) => {
                     const newStateNames = [...props.stateNames] // deepclone
                     const positionInArray = newStateNames.findIndex(nameToSearch => nameToSearch.title === todo.title)
-                    const personDeleted = newStateNames.splice(positionInArray, 1)
+                    newStateNames.splice(positionInArray, 1)
                     props.setStateNames(newStateNames)
                     //localStorage.setItem("todos", JSON.stringify(newStateNames))
                 }}>X</button>
