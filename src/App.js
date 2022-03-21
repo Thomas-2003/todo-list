@@ -22,10 +22,19 @@ function App() {
       parameters = query.filter === 'completed' ? `?filter=completed` : `?filter=uncompleted`
 
     }
-    fetch(`http://localhost:4000/todos${parameters}`)  //async operation
+    fetch(`http://localhost:4000/todos${parameters}`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    })  //async operation
       .then(response => response.json())
       .then(json => {
-        setStateNames(json) //save response into state after it is finished
+        if (json.message === "success" && json.todos.length > 0) {
+          setStateNames(json.todos) //save response into state after it is finished
+        } else {
+          alert("You are not authenticated!")
+          localStorage.removeItem("token")
+        }
       })
   }, [query])
 
