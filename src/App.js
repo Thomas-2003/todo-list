@@ -22,7 +22,7 @@ function App() {
       parameters = query.filter === 'completed' ? `?filter=completed` : `?filter=uncompleted`
 
     }
-    fetch(`http://localhost:4000/todos${parameters}`, {
+    fetch(`${process.env.BACKEND}/todos${parameters}`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
@@ -78,7 +78,7 @@ function App() {
           }}>Reset</button>
           <button className="btn btn-primary" onClick={e => {
             setloading(true)
-            fetch(`http://localhost:4000/todos/save`, {
+            fetch(`${process.env.BACKEND}/todos/save`, {
               method: "POST",
               headers: {
                 "Authorization": localStorage.getItem("token")
