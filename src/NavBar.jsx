@@ -12,7 +12,7 @@ export const NavBar = (props) => {
                             email: e.target.elements.email.value,
                             password: e.target.elements.password.value
                         }
-                        fetch(`${process.env.BACKEND}/users/auth`, {
+                        fetch(`${process.env.BACKEND}/users/login`, {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
